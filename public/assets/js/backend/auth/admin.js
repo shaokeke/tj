@@ -52,7 +52,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             Table.api.bindevent(table);
         },
         add: function () {   
-			console.log(Config.list.name)
+			//console.log(Config.list.name)
 		    $("input[name='row[type]']").click(function(){
 				var val=$("input[name='row[type]']:checked").val();
 				if(val==1){
