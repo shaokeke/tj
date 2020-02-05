@@ -1,0 +1,217 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+ <ul class="fillIn_data_ul clearfix">
+            <li class="flex_currency col-xs-6 col-sm-4"> 
+                 <label for="c-name" class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+                 <div class="right_inputData">
+                    <input id="c-name" data-rule="required" class="form-control" name="row[name]" type="text" value="{$row.name}">
+                 </div>
+            </li>
+   <li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-nickname" class="control-label col-xs-12 col-sm-2">{:__('Contact')}:</label>
+        <div class="right_inputData">
+            <input id="c-nickname" data-rule="required" class="form-control" name="row[contact]" type="text" value="{$row.contact}">
+        </div>
+    </li>
+	<li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-nickname" class="control-label col-xs-12 col-sm-2">{:__('Mobile')}:</label>
+        <div class="right_inputData">
+            <input id="c-mobile" data-rule="required" class="form-control" name="row[mobile]" type="text" value="{$row.mobile}">
+        </div>
+     </li> 
+	<li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-nickname" class="control-label col-xs-12 col-sm-2">{:__('Tel')}:</label>
+         <div class="right_inputData">
+            <input id="c-nickname" data-rule="required" class="form-control" name="row[tel]" type="text" value="{$row.tel}">
+        </div>
+    </li>
+	<li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-nickname" class="control-label col-xs-12 col-sm-2">{:__('Address')}:</label>
+         <div class="right_inputData">
+            <input id="c-nickname" data-rule="required" class="form-control" name="row[address]" type="text" value="{$row.address}">
+        </div>
+    </li>
+	
+   <li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-keywords" class="control-label col-xs-12 col-sm-2">{:__('Types')}:</label>
+          <div class="right_inputData">
+            <input id="c-keywords" class="form-control" name="row[types]" type="text" value="{$row.types}">
+        </div>
+    </li>
+	<input class="form-control" id="hospital_id" type="hidden" value="{$row.id}">
+	 <li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-keywords" class="control-label col-xs-12 col-sm-2">{:__('Consignee')}:</label>
+       <div class="right_inputData">
+            <select name="row[consignee_id]" class="form-control" id="consignee" onchange="change()">
+				<option value="0">请选择</option>
+                {foreach name='list' item="val"}
+                <option value="{$val.id}" {if condition="$row['consignee_id'] eq $val.id"}selected{/if}>{$val.name}</option>
+                {/foreach}   
+               
+            </select>
+        </div>
+    </li>
+	 <li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-keywords" class="control-label col-xs-12 col-sm-2">{:__('Assigned')}:</label>
+         <div class="right_inputData">
+            {if isset($namess)}
+             <select name="row[assigned_id]" class="form-control" > 
+				<option value="0">请选择</option>
+                {foreach name='namess' item="val"}
+                <option value="{$val.id}" {if condition="$row['assigned_id'] eq $val.id"}selected{/if}>{$val.nickname}</option>
+                {/foreach}                 
+            </select>
+            {else/}
+			<select name="row[assigned_id]" class="form-control" > 
+				<option value="0">请联系管理员分配专家</option>
+			</select>
+            {/if}
+        </div>
+    </li>
+	<li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-keywords" class="control-label col-xs-12 col-sm-2">审核专家:</label>
+         <div class="right_inputData">
+            {if isset($audits)}
+             <select name="row[audit_id]" class="form-control" >
+				<option value="0">请选择</option>
+                {foreach name='audits' item="val"}
+                <option value="{$val.id}" {if condition="$row['audit_id'] eq $val.id"}selected{/if}>{$val.nickname}</option>
+                {/foreach}                 
+            </select>
+            {else/}
+			<select name="row[audit_id]" class="form-control" > 
+				<option value="0">请联系管理员分配专家</option>
+			</select>
+            {/if}
+        </div>
+    </li>
+	<li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-keywords" class="control-label col-xs-12 col-sm-2">默认科主任:</label>
+         <div class="right_inputData">
+            {if isset($directors)}
+             <select name="row[director_id]" class="form-control" >
+				<option value="0">请选择</option>
+                {foreach name='directors' item="val"}
+                <option value="{$val.id}" {if condition="$row['director_id'] eq $val.id"}selected{/if}>{$val.nickname}</option>
+                {/foreach}                 
+            </select>
+            {else/}
+			<select name="row[director_id]" class="form-control" > 
+				<option value="0">请联系管理员分配专家</option>
+			</select>
+            {/if}
+        </div>
+    </li>
+	<li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-keywords" class="control-label col-xs-12 col-sm-2">终审专家:</label>
+         <div class="right_inputData">
+            {if isset($lasts)}
+             <select name="row[last_id]" class="form-control" >
+				<option value="0">请选择</option>
+                {foreach name='lasts' item="val"}
+                <option value="{$val.id}" {if condition="$row['last_id'] eq $val.id"}selected{/if}>{$val.nickname}</option>
+                {/foreach}                 
+            </select>
+            {else/}
+			<select name="row[last_id]" class="form-control" > 
+				<option value="0">请联系管理员分配专家</option>
+			</select>
+            {/if}
+        </div>
+    </li>
+	 <li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-keywords" class="control-label col-xs-12 col-sm-2">{:__('Change')}:</label>
+         <div class="right_inputData" id="change">
+            <input id="change_id" type="hidden" value="{$row.change_id}">
+            <select name="row[change_id]" class="form-control" > 
+                <option value="0">请选择</option>                       
+                {foreach name='list' item="val"}				
+                <option value="{$val.id}" {if condition="$row['change_id'] eq $val.id"}selected{/if}>{$val.name}</option>
+                {/foreach}   
+               
+            </select>
+        </div>
+     </li>
+	 <li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-keywords" class="control-label col-xs-12 col-sm-2">{:__('Frozen')}:</label>
+        <div class="right_inputData">
+            <select name="row[frozen_id]" class="form-control" >
+				<option value="0">请选择</option>
+                {foreach name='list' item="val"}
+                <option value="{$val.id}" {if condition="$row['frozen_id'] eq $val.id"}selected{/if}>{$val.name}</option>
+                {/foreach}   
+               
+            </select>
+        </div>
+   </li>
+	 <li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-nickname" class="control-label col-xs-12 col-sm-2">免费会诊次数:</label>
+        <div class="right_inputData">
+            <input id="c-free_time" data-rule="required" class="form-control" name="row[free_time]" type="text" value="{$row.free_time}">
+        </div>
+    </li>
+	 <li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-nickname" class="control-label col-xs-12 col-sm-2">可透支会诊次数:</label>
+        <div class="right_inputData">
+            <input id="c-over_time" data-rule="required" class="form-control" name="row[over_time]" type="text" value="{$row.over_time}">
+        </div>
+    </li>
+	 <li class="flex_currency col-xs-6 col-sm-4"> 
+        <label for="c-price" class="control-label col-xs-12 col-sm-2">专家出诊费用:</label>
+        <div class="right_inputData">
+            <input id="c-price" data-rule="required" class="form-control" name="row[price]" type="text" value="{$row.price}">
+        </div>
+    </li>
+	 <li class="flex_currency col-xs-6 col-sm-4"> 
+        <label class="control-label col-xs-12 col-sm-2">冰冻预约权限:</label>
+        <div class="right_inputData">
+            {:build_radios('row[forzen_auth]', ['normal'=>__('Yes'), 'hidden'=>__('No')], $row['forzen_auth'])}
+        </div>
+    </li>
+	 <li class="flex_currency col-xs-6 col-sm-4"> 
+        <label class="control-label col-xs-12 col-sm-2">{:__('State')}:</label>
+        <div class="right_inputData">
+            {:build_radios('row[state]', ['normal'=>__('Yes'), 'hidden'=>__('No')], $row['state'])}
+        </div>
+    </li>
+     <li class="flex_currency col-xs-6 col-sm-4"> 
+        <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="right_inputData">
+            {:build_radios('row[status]', ['normal'=>__('Normal'), 'hidden'=>__('Hidden')], $row['status'])}
+        </div>
+    </li>
+	<li class="flex_currency col-xs-6 col-sm-4"> 
+        <label class="control-label col-xs-12 col-sm-2">{:__('Stated')}:</label>
+        <div class="right_inputData">
+            {:build_radios('row[stated]', ['normal'=>'是', 'hidden'=>'否'], $row['stated'])}
+        </div>
+    </li>
+	<li class="flex_currency col-xs-6 col-sm-4"> 
+        <label class="control-label col-xs-12 col-sm-2">开关:</label>
+        <input  id="c-switch" name="row[switch]" type="hidden" value="{$row.switch}">
+		<a href="javascript:;" data-toggle="switcher" class="btn-switcher" data-input-id="c-switch" data-yes="1" data-no="0" >
+			<i class="fa fa-toggle-on text-success {eq name="$row.switch" value="0"}fa-flip-horizontal text-gray{/eq} fa-2x"></i>
+		</a>
+    </li>
+	<li class="flex_currency col-xs-6 col-sm-12"> 
+        <label class="control-label col-xs-12 col-sm-2">医院LOGO:</label>
+        <div class="col-xs-12 col-sm-6">
+            <div class="input-group">
+                <input id="c-logo" class="form-control" size="50" name="row[logo]" type="text" value="{$row.logo|htmlentities}">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button" id="plupload-logo" class="btn btn-danger plupload" data-input-id="c-logo" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="true" data-preview-id="p-logo"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <span><button type="button" id="fachoose-logo" class="btn btn-primary fachoose" data-input-id="c-logo" data-mimetype="image/*" data-multiple="true"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-logo"></span>
+            </div>
+            <ul class="row list-inline plupload-preview" id="p-logo"></ul>
+        </div>
+    </li>
+    <li class="flex_currency col-xs-6 col-sm-4 layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="right_inputData">
+            <button type="submit" class="btn btn-success btn-embossed ">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </li>
+</ul>
+</form>

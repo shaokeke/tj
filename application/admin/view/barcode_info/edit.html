@@ -1,0 +1,208 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Externalbarcode')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-externalBarCode" class="form-control" name="row[externalBarCode]" type="text" value="{$row.externalBarCode|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Hospitalcode')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-hospitalCode" class="form-control" name="row[hospitalCode]" type="text" value="{$row.hospitalCode|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Internalbarcode')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-internalBarcode" class="form-control" name="row[internalBarcode]" type="text" value="{$row.internalBarcode|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Patientid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-patientId" class="form-control" name="row[patientId]" type="text" value="{$row.patientId|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pnameeng')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pNameEng" class="form-control" name="row[pNameEng]" type="text" value="{$row.pNameEng|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pname')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pName" class="form-control" name="row[pName]" type="text" value="{$row.pName|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Psex')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pSex" class="form-control" name="row[pSex]" type="text" value="{$row.pSex|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Dateofbirth')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-dateOfBirth" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[dateOfBirth]" type="text" value="{$row.dateOfBirth}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Page')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pAge" class="form-control" name="row[pAge]" type="number" value="{$row.pAge|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Ageunit')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-ageUnit" class="form-control" name="row[ageUnit]" type="text" value="{$row.ageUnit|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Identitycardno')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-identityCardNo" class="form-control" name="row[identityCardNo]" type="text" value="{$row.identityCardNo|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Ptype')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pType" class="form-control" name="row[pType]" type="number" value="{$row.pType|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Admdate')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-admDate" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[admDate]" type="text" value="{$row.admDate}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Admno')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-admNo" class="form-control" name="row[admNo]" type="text" value="{$row.admNo|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Bedno')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-bedNo" class="form-control" name="row[bedNo]" type="text" value="{$row.bedNo|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Department')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-department" class="form-control" name="row[department]" type="text" value="{$row.department|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Doctorname')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-doctorName" class="form-control" name="row[doctorName]" type="text" value="{$row.doctorName|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Diagnose')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-diagnose" class="form-control" name="row[diagnose]" type="text" value="{$row.diagnose|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Specimenstype')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-specimensType" class="form-control" name="row[specimensType]" type="text" value="{$row.specimensType|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Tubes')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-tubes" class="form-control" name="row[tubes]" type="number" value="{$row.tubes|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Specimensstatus')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-specimensStatus" class="form-control" name="row[specimensStatus]" type="text" value="{$row.specimensStatus|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Senddate')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-sendDate" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[sendDate]" type="text" value="{$row.sendDate}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Testdestcode')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-testDestCode" class="form-control" name="row[testDestCode]" type="text" value="{$row.testDestCode|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Testdest')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-testDest" class="form-control" name="row[testDest]" type="text" value="{$row.testDest|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Collecttime')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-collectTime" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[collectTime]" type="text" value="{$row.collectTime}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Recievetime')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-recieveTime" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[recieveTime]" type="text" value="{$row.recieveTime}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Notes')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-notes" class="form-control" name="row[notes]" type="text" value="{$row.notes|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Specialdes')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-specialDes" class="form-control" name="row[specialDes]" type="text" value="{$row.specialDes|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Grbm')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-grbm" class="form-control" name="row[grbm]" type="text" value="{$row.grbm|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Wsdwmc')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-wsdwmc" class="form-control" name="row[wsdwmc]" type="text" value="{$row.wsdwmc|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Row_number')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-ROW_NUMBER" class="form-control" name="row[ROW_NUMBER]" type="text" value="{$row.ROW_NUMBER|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            
+            <div class="radio">
+            {foreach name="statusList" item="vo"}
+            <label for="row[status]-{$key}"><input id="row[status]-{$key}" name="row[status]" type="radio" value="{$key}" {in name="key" value="$row.status"}checked{/in} /> {$vo}</label> 
+            {/foreach}
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,132 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="{:url('verify2')}">
+
+   <input id="c-username" data-rule="required" class="form-control" name="row[id]" type="hidden" value="{$row.id}">
+    <div class="form-group">
+        <label for="c-username" class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-username" readonly data-rule="required" class="form-control" name="row[name]" type="text" value="{$row.name}">
+            <input id="c-stype"  class="form-control" name="row[stype]" type="hidden" value="{$row.stype}">
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-username" class="control-label col-xs-12 col-sm-2">{:__('Card')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-username" readonly data-rule="required" class="form-control" name="row[card]" type="text" value="{$row.card}">
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-group_id" class="control-label col-xs-12 col-sm-2">{:__('Hospital')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            {$list}
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-gender" class="control-label col-xs-12 col-sm-2">{:__('Gender')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[sex]', ['1'=>__('Male'), '0'=>__('Female')], $row['sex'])}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-email" class="control-label col-xs-12 col-sm-2">{:__('Department')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-email" readonly data-rule="" class="form-control" name="row[department]" type="text" value="{$row.department}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-2">{:__('Bnum')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-mobile" readonly data-rule="" class="form-control" name="row[bl_num]" type="text" value="{$row.bl_num}">
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-2">{:__('Snum')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-mobile" readonly data-rule="" class="form-control" name="row[seek_num]" type="text" value="{$row.seek_num}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-avatar" class="control-label col-xs-12 col-sm-2">{:__('Report')}:</label>
+        <div class="col-xs-12 col-sm-8">
+			{foreach name="report" item="val"}
+            <img src="__CDN__/uploads/{$val}" style="width:20%">
+			{/foreach}
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-avatar" class="control-label col-xs-12 col-sm-2">{:__('Other')}:</label>
+        <div class="col-xs-12 col-sm-8">
+			{foreach name="other" item="val"}
+            <img src="__CDN__/uploads/{$val}" style="width:20%">
+			{/foreach}
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-2">{:__('Aim')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-mobile" readonly data-rule="" class="form-control" name="row[aim]" type="text" value="{$row.aim}">
+        </div>
+    </div>
+	
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-2">{:__('Form')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-mobile" readonly data-rule="" class="form-control" name="row[form]" type="text" value="{$row.form}">
+        </div>
+    </div>
+	{if ($row.status==1)}
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-2">{:__('Code')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-mobile" data-rule="" class="form-control" name="row[h_code]" type="text" value="">
+			<input id="c-mobile" data-rule="" class="form-control" name="row[code]" type="hidden" value="{$row.code}">
+        </div>
+    </div>
+	{/if}
+	{if ($row.status==2)}
+	
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-2">{:__('Company')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-mobile" data-rule="" class="form-control" name="row[express_company]" type="text" value="">
+		</div>
+    </div>
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-2">{:__('Number')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-mobile" data-rule="" class="form-control" name="row[express_number]" type="text" value="">
+		</div>
+    </div>
+{/if}
+	<!--<div class="form-group">
+        <label for="c-gender" class="control-label col-xs-12 col-sm-2">{:__('Verify')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[state]', ['1'=>__('Yes'), '2'=>__('No')], $row['state'])}
+        </div>
+    </div>
+	
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-2">{:__('Content')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-mobile" data-rule="" class="form-control" name="row[content]" type="text" value="{$row.content}">
+        </div>
+    </div>-->
+
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{if ($row.status=='1')}核销{elseif  ($row.status=='2')}填写快递信息{else/}保存{/if}</button>
+            <!--<button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>-->
+        </div>
+    </div>
+
+	<div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled" name="row[type]" value="1">补充资料</button>
+            <button type="submit" class="btn btn-success btn-embossed disabled">预审通过</button>
+        </div>
+    </div>
+</form>
+<script>
+
+</script>

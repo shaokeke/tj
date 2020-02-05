@@ -1,0 +1,299 @@
+<style>
+	.form-horizontal{display: flex; align-items: center; flex-wrap: wrap;}
+	.form-group{width: 50%;}
+	.exploded_view{position: fixed; left: 50%; top:50%; height: 100%; overflow-y: auto; align-items: center; transform: translate(-50%,-50%); z-index: 101; display: none}
+</style>
+{if (!$chapter)}
+<!--代理权限-->
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="{:url('verify')}">
+   <input id="c-username" data-rule="required" class="form-control" name="row[id]" type="hidden" id="rid" value="{$row.id}">
+    <div class="form-group">
+        <label for="c-username" class="control-label col-xs-12 col-sm-4">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-username" readonly data-rule="required" class="form-control" name="row[name]" type="text" value="{$row.name}">
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-username" class="control-label col-xs-12 col-sm-4">{:__('Card')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-username" readonly data-rule="required" class="form-control" name="row[card]" type="text" value="{$row.card}">
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-group_id" class="control-label col-xs-12 col-sm-4">{:__('Hospital')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-username" readonly data-rule="required" class="form-control" name="hospital_id" type="text" value="{$row.hospital_id}">
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-gender" class="control-label col-xs-12 col-sm-4">{:__('Gender')}:</label>
+        <div class="col-xs-12 col-sm-8">
+           <input id="c-username" readonly data-rule="required" class="form-control" name="sex" type="text" value="{$row.sex}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-email" class="control-label col-xs-12 col-sm-4">{:__('Department')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-email" readonly data-rule="" class="form-control" name="row[department]" type="text" value="{$row.department}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-4">{:__('Bnum')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-mobile" readonly data-rule="" class="form-control" name="row[bl_num]" type="text" value="{$row.bl_num}">
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-4">{:__('Snum')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-mobile" readonly data-rule="" class="form-control" name="row[seek_num]" type="text" value="{$row.seek_num}">
+        </div>
+    </div>
+    <div class="form-group" style="width: 100%;">
+        <label for="c-avatar" class="control-label col-xs-12 col-sm-2">{:__('Report')}:</label>
+        <div class="col-xs-12 col-sm-10">
+			{foreach name="report" item="val"}
+            <img src="__CDN__/uploads/{$val}" class="other_listImg" style="width:20%">
+			{/foreach}
+        </div>
+    </div>
+	<div class="form-group" style="width: 100%;">
+        <label for="c-avatar" class="control-label col-xs-12 col-sm-2">{:__('Other')}:</label>
+        <div class="col-xs-12 col-sm-10">
+			{foreach name="other" item="val"}
+            <img src="__CDN__/uploads/{$val}" class="other_listImg" style="width:20%">
+			{/foreach}
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-4">{:__('Aim')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-mobile" readonly data-rule="" class="form-control" name="row[aim]" type="text" value="{$row.aim}">
+        </div>
+    </div>
+	
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-4">{:__('Form')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-mobile" readonly data-rule="" class="form-control" name="row[form]" type="text" value="{$row.form}">
+        </div>
+    </div>
+	{if ($row.status==1)}
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-4">{:__('Code')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-mobile" data-rule="" class="form-control" name="row[h_code]" type="text" value="">
+			<input id="c-mobile" data-rule="" class="form-control" name="row[code]" type="hidden" value="{$row.code}">
+        </div>
+    </div>
+	{/if}
+	{if ($row.status==2)}
+		<div class="form-group">
+			<label for="c-mobile" class="control-label col-xs-12 col-sm-2">{:__('Company')}:</label>
+			<div class="col-xs-12 col-sm-10">
+				<input id="c-mobile" data-rule="" class="form-control" name="row[express_company]" type="text" value="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="c-mobile" class="control-label col-xs-12 col-sm-4">{:__('Number')}:</label>
+			<div class="col-xs-12 col-sm-8">
+				<input id="c-mobile" data-rule="" class="form-control" name="row[express_number]" type="text" value="">
+			</div>
+		</div>
+	{/if}
+	{if ($row.status==4||$row.status==6)}
+	<div class="form-group" style="width: 100%;">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-2">{:__('Content')}1:</label>
+        <div class="col-xs-12 col-sm-10">
+			<textarea name="row[content]" class="editor">{$row.content}</textarea>
+		</div>
+    </div>
+	{/if}
+	{if ($row.status<3)}
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-4"></label>
+        <div class="col-xs-12 col-sm-8">
+            {if ($row.status=='1')}
+            <button type="submit" class="btn btn-success btn-embossed disabled">核销</button>
+            {/if}
+            {if ($row.status=='2')}
+            {if ($row.stype=='1')} <button class="btn btn-success btn-embossed change-pj" data-type='5' data-id='{$row.id}'>无需快递</button>{/if}
+            <button type="submit" class="btn btn-success btn-embossed disabled">填写快递信息</button>
+            {/if}
+        </div>
+    </div>{/if}
+</form>
+{else/}
+<!--中心操作权限-->
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+   <input id="c-username" data-rule="required" class="form-control" name="row[id]" type="hidden" id="rid" value="{$row.id}">
+    <div class="form-group">
+        <label for="c-username" class="control-label col-xs-12 col-sm-4">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-username" readonly data-rule="required" class="form-control" name="name" type="text" value="{$row.name}">
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-username" class="control-label col-xs-12 col-sm-4">{:__('Card')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-username" readonly data-rule="required" class="form-control" name="card" type="text" value="{$row.card}">
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-group_id" class="control-label col-xs-12 col-sm-4">{:__('Hospital')}:</label>
+        <div class="col-xs-12 col-sm-8 disabled_div">
+            <input id="c-username" readonly data-rule="required" class="form-control" name="hospital_id" type="text" value="{$row.hospital_id}">
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-gender" class="control-label col-xs-12 col-sm-4">{:__('Gender')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-username" readonly data-rule="required" class="form-control" name="hospital_id" type="text" value="{$row.sex}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-email" class="control-label col-xs-12 col-sm-4">{:__('Department')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-email" readonly data-rule="" class="form-control" name="department" type="text" value="{$row.department}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-4">{:__('Bnum')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-mobile" readonly data-rule="" class="form-control" name="bl_num" type="text" value="{$row.bl_num}">
+        </div>
+    </div>
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-4">{:__('Snum')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-mobile" readonly data-rule="" class="form-control" name="seek_num" type="text" value="{$row.seek_num}">
+        </div>
+    </div>
+    <div class="form-group" style="width: 100%;">
+        <label for="c-avatar" class="control-label col-xs-12 col-sm-2">{:__('Report')}:</label>
+        <div class="col-xs-12 col-sm-10">
+			{foreach name="report" item="val"}
+            <img class="other_listImg" src="__CDN__/uploads/{$val}" style="width:12%; cursor: pointer;">
+			{/foreach}
+        </div>
+    </div>
+	<div class="form-group" style="width: 100%">
+        <label for="c-avatar" class="control-label col-xs-12 col-sm-2">{:__('Other')}:</label>
+        <div class="col-xs-12 col-sm-10">
+			{foreach name="other" item="val"}
+			{if($val)}
+            <img class="other_listImg" src="__CDN__/uploads/{$val}" style="width:12%; cursor: pointer;">
+			{/if}
+			{/foreach}
+        </div>
+    </div>
+	{if ($row.supply)}
+	<div class="form-group" style="width: 100%">
+        <label for="c-avatar" class="control-label col-xs-12 col-sm-2">补充的资料:</label>
+        <div class="col-xs-12 col-sm-10">
+			{foreach name="supply" item="val"}
+            <img class="other_listImg" src="__CDN__/uploads/{$val}" style="width:12%; cursor: pointer;">
+			{/foreach}
+        </div>
+    </div>
+	{/if}
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-4">{:__('Aim')}:</label>
+        <div class="col-xs-12 col-sm-8">
+<!--            <input id="c-mobile" readonly data-rule="" class="form-control" name="aim" type="text" value="{$row.aim}">-->
+					<textarea name="aim" readonly data-rule="" class="form-control">{$row.aim}</textarea>
+        </div>
+    </div>
+	
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-4">{:__('Form')}:</label>
+        <div class="col-xs-12 col-sm-8">
+<!--            <input id="c-mobile" readonly data-rule="" class="form-control" name="form" type="text" value="{$row.form}">-->
+					<textarea name="form" readonly data-rule="" class="form-control">{$row.form}</textarea>
+        </div>
+    </div>
+	{if ($row.express_number)}
+	<div class="form-group">
+			<label for="c-mobile" class="control-label col-xs-12 col-sm-4">{:__('Company')}:</label>
+			<div class="col-xs-12 col-sm-8">{$row.form}
+				<input id="c-mobile" data-rule="" class="form-control" name="express_company" type="text" value="{$row.express_company}">
+			</div>
+	</div>
+	<div class="form-group">
+		<label for="c-mobile" class="control-label col-xs-12 col-sm-4">{:__('Number')}:</label>
+		<div class="col-xs-12 col-sm-8">
+			<input id="c-mobile" data-rule="" class="form-control" name="express_number" type="text" value="{$row.express_number}">
+		</div>
+	</div>{/if}
+	{if ($row.status==4||$row.status==6)}
+	
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-4">付费金额:</label>
+        <div class="col-xs-12 col-sm-8">
+			<input id="c-mobile" data-rule="" class="form-control" name="add_price" type="text" value="{$site.addprice}">
+		</div>
+    </div>
+	<div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-4">新增:</label>
+        <div class="col-xs-12 col-sm-8">
+			<input id="c-mobile" data-rule="" class="form-control" name="add_content" type="text" value="{$row.add_content}">
+		</div>
+    </div>
+    <div class="form-group" style="width: 100%;">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-2">{:__('Content')}:</label>
+        <div class="col-xs-12 col-sm-10">
+            {if ($row.content)}
+            <textarea name="content" class="editor">{$row.content}</textarea>
+            {else/}
+             <textarea name="content" class="editor"></textarea>
+            {/if}
+        </div>
+    </div>
+	{/if}
+
+	{if ($row.status==7||$row.status==3)}
+		<div class="form-group">
+			<label for="c-mobile" class="control-label col-xs-12 col-sm-4">待补资料说明:</label>
+			<div class="col-xs-12 col-sm-8">
+				<input id="c-mobile" data-rule="" class="form-control" name="explain" type="text" value="{$row.explain}">
+			</div>
+		</div>
+		<div class="form-group layer-footer">
+			<label class="control-label col-xs-12 col-sm-4"></label>
+			<div class="col-xs-12 col-sm-8">
+				<button class="btn btn-success btn-embossed change-pj" data-type='1' data-id='{$row.id}'>补充资料</button>
+				<button  class="btn btn-success btn-embossed change-pj"  data-type='2' data-id='{$row.id}'>预审通过</button>
+			</div>
+		</div>
+	{/if}
+	{if ($row.status==4)}
+		<div class="form-group layer-footer">
+			<label class="control-label col-xs-12 col-sm-4"></label>
+			<div class="col-xs-12 col-sm-8">
+				<button class="btn btn-success btn-embossed change-pj" data-type='3' data-id='{$row.id}'>增加项目</button>
+				<button class="btn btn-success btn-embossed change-pj" data-type='4' data-id='{$row.id}'>会诊完成</button>
+			</div>
+		</div>
+	{/if}
+</form>
+{/if}
+
+<div class="zzc" style="position: fixed; left: 0; top: 0; background: rgba(0,0,0,0.7); width: 100%; height: 100%; z-index: 100; display: none"></div>
+<div class="exploded_view">
+	<img src="" alt="" style="max-width: 100%; display: block; margin: 0 auto;">
+</div>
+<script src="__CDN__/assets/js/ybl/jquery-2.1.4.min.js"></script>
+<script>
+	$(function(){
+		$('.other_listImg').click(function(){
+			var src=$(this).attr('src');
+			$('.zzc').show();
+			$('.exploded_view').css({display:'flex'});
+			$('.exploded_view img').attr({src:src})
+		})
+		$('.zzc').click(function(){
+			$('.zzc').hide();
+			$('.exploded_view').hide();
+		})
+	})
+</script>

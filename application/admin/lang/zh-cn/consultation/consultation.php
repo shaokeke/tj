@@ -1,0 +1,30 @@
+<?php
+
+return [
+    'Id'             => 'ID',
+    'Name'       => '患者姓名',
+    'Hospital'       => '送检医院',
+    'Department'       => '科室',
+    'Verify'       => '审核',
+    'Bnum'           => '原单位病理号',
+    'Snum'          => '医保卡号或就诊号',
+    'Card'         => '身份证号',
+    'Report'         => '病理报告',
+    'Other'          => '其它信息',
+    'Gender'         => '性别',
+    'Male'           => '男',
+    'FeMale'         => '女',
+    'Form'       => '会诊备注',
+    'Aim'            => '会诊目的',
+    'Body'          => '取材部位',
+    'Addtime'     => '创建时间',
+	'Content'     => '出具会诊报告',
+    'Status'         => '会诊状态',
+	'Yes'         => '通过',
+	'No'         => '拒绝',
+	'Code'         => '核销码',
+	'Company'         => '快递公司',
+	'Number'         => '快递单号',
+	'fmoney'         => '付费金额',
+	'addnew'         => '新增'
+];
