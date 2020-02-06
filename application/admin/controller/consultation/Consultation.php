@@ -1,8 +1,12 @@
 <?php
 
 namespace app\admin\controller\consultation;
-
+use Exception;
 use app\common\controller\Backend;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use fast\Safe;
 use think\Db;
 /**
@@ -45,15 +49,12 @@ class Consultation extends Backend
 			$condition['hospital_id']=array('gt',0);
 		}
 		
-		$chapter=$this->auth->check('consultation/consultation/verify2');
 		$gid=$this->auth->getGroupIds();
 		$pid=Db::name('AuthGroup')->where('id',$gid[0])->value('pid');
 
-		if($chapter){
-			$is_del=1;
-		}else{
-			$is_del=0;
-		}
+		
+		$is_del=0;
+
 				
         //设置过滤方法
 		$this->request->filter(['strip_tags']);
@@ -69,17 +70,10 @@ class Consultation extends Backend
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
 			
 			if($pid!=0){
-				if($chapter){
-					//中心账号下的列表
-					//$total = $this->model->with('group')->where($where)->where('consultation.status','gt',2)->where($condition)->order($sort, $order)->count();
-					//$list = $this->model->with('group')->where($where)->where('consultation.status','gt',2)->where($condition)->order($sort, $order)->limit($offset, $limit)->select();
-					$total = $this->model->with('group')->where($where)->where('consultation.status','gt',2)->order($sort, $order)->count();
-					$list = $this->model->with('group')->where($where)->where('consultation.status','gt',2)->order($sort, $order)->limit($offset, $limit)->select();
-				}else{
-					//代理账号下的列表
-					$total = $this->model->with('group')->where($where)->where($condition)->order($sort, $order)->count();
-					$list = $this->model->with('group')->where($where)->where($condition)->order($sort, $order)->limit($offset, $limit)->select();
-				}
+				//代理账号下的列表
+				$total = $this->model->with('group')->where($where)->where($condition)->order($sort, $order)->count();
+				$list = $this->model->with('group')->where($where)->where($condition)->order($sort, $order)->limit($offset, $limit)->select();
+
 			}else{
 				$total = $this->model->with('group')->where($where)->where($condition)->order($sort, $order)->count();
 
@@ -225,7 +219,7 @@ class Consultation extends Backend
 			                'cid'=>$data['row']['id']
 			            ),
         			);
-        			$this->smsSend($params);
+        			//$this->smsSend($params);
 					$this->model->where('id','=',$data['row']['id'])->setField('status',7);
 				}else{
 					$this->error('请填写快递公司名称或者单号');
@@ -283,4 +277,141 @@ class Consultation extends Backend
 		}
 
 	}
+	
+
+	/**
+     * 导入
+     */
+    public function import()
+    {
+		vendor('PHPExcel.PHPExcel');
+        $file = $this->request->request('file');
+        if (!$file) {
+            $this->error(__('Parameter %s can not be empty', 'file'));
+        }
+        $filePath = ROOT_PATH . DS . 'public' . DS . $file;
+        if (!is_file($filePath)) {
+            $this->error(__('No results were found'));
+        }
+        $PHPReader = new \PHPExcel_Reader_Excel2007();
+        if (!$PHPReader->canRead($filePath)) {
+            $PHPReader = new \PHPExcel_Reader_Excel5();
+            if (!$PHPReader->canRead($filePath)) {
+                $PHPReader = new \PHPExcel_Reader_CSV();
+                if (!$PHPReader->canRead($filePath)) {
+                    $this->error(__('Unknown data format'));
+                }
+            }
+        }
+
+        //导入文件首行类型,默认是注释,如果需要使用字段名称请使用name
+        $importHeadType = isset($this->importHeadType) ? $this->importHeadType : 'comment';
+
+        $table = $this->model->getQuery()->getTable();
+        $database = \think\Config::get('database.database');
+        $fieldArr = [];
+        $list = db()->query("SELECT COLUMN_NAME,COLUMN_COMMENT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ? AND TABLE_SCHEMA = ?", [$table, $database]);
+        foreach ($list as $k => $v) {
+            if ($importHeadType == 'comment') {
+                $fieldArr[$v['COLUMN_COMMENT']] = $v['COLUMN_NAME'];
+            } else {
+                $fieldArr[$v['COLUMN_NAME']] = $v['COLUMN_NAME'];
+            }
+        }
+
+        $PHPExcel = $PHPReader->load($filePath); //加载文件
+        $currentSheet = $PHPExcel->getSheet(0);  //读取文件中的第一个工作表
+        $allColumn = $currentSheet->getHighestDataColumn(); //取得最大的列号
+        $allRow = $currentSheet->getHighestRow(); //取得一共有多少行
+        $maxColumnNumber = \PHPExcel_Cell::columnIndexFromString($allColumn);
+        for ($currentRow = 1; $currentRow <= 1; $currentRow++) {
+            for ($currentColumn = 0; $currentColumn < $maxColumnNumber; $currentColumn++) {
+                $val = $currentSheet->getCellByColumnAndRow($currentColumn, $currentRow)->getValue();
+                $fields[] = $val;
+            }
+		}
+
+		$insert = [];
+
+        for ($currentRow = 2; $currentRow <= $allRow; $currentRow++) {
+            $values = [];
+            for ($currentColumn = 0; $currentColumn < $maxColumnNumber; $currentColumn++) {
+                $val = $currentSheet->getCellByColumnAndRow($currentColumn, $currentRow)->getValue();
+                $values[] = is_null($val) ? '' : $val;
+            }
+            $row = [];
+            $temp = array_combine($fields, $values);
+			if($temp['性别']){
+				if($temp['性别']=='男'){
+					$temp['性别']=1;
+				}else{
+					$temp['性别']=2;
+				}
+			}
+			if($temp['付款状态']){
+				if($temp['付款状态']=='已付款'){
+					$temp['付款状态']=2;
+				}else{
+					$temp['付款状态']=1;
+				}
+			}
+			if($temp['会诊状态']){
+				switch ($temp['会诊状态'])
+				{
+				case "待付款":
+					$temp['会诊状态'] =  0;break;
+				case "待取切片":
+					$temp['会诊状态'] =  1;break;
+				case "已取切片":
+					$temp['会诊状态'] =  2;break;
+				case "待补资料":
+					$temp['会诊状态'] =  3;break;
+				case "已初审":
+					$temp['会诊状态'] =  4;break;
+				case "增加项付费":
+					$temp['会诊状态'] =  5;break;
+				case "会诊完成":
+					$temp['会诊状态'] =  6;break;
+				case "待审核":
+					$temp['会诊状态'] =  7;break;
+				case "待审核":
+					$temp['会诊状态'] =  0;
+					$temp['保存类型'] = 2;
+					break;
+				default:
+					$status=6;
+				}
+			}
+			if($temp['送检医院']){
+
+				$temp['送检医院'] = Db::name('hospital')->where('name',$temp['送检医院'])->value('id');
+
+			}
+			if($temp['添加时间']){
+				$temp['添加时间']=strtotime(gmdate('Y-m-d H:i',\PHPExcel_Shared_Date::ExcelToPHP($temp['添加时间'])));;
+			}
+
+            foreach ($temp as $k => $v) {
+                if (isset($fieldArr[$k]) && $k !== '') {
+                    $row[$fieldArr[$k]] = $v;
+                }
+			}
+            if ($row) {
+                try {
+					$data = Db::name("consultation")->where('number',$row['number'])->select();
+					if(!$data){
+						$r = Db::name("consultation")->insert($row);
+					}
+				} catch (\think\exception\PDOException $exception) {
+					$this->error($exception->getMessage());
+				} catch (\Exception $e) {
+					$this->error($e->getMessage());
+				}
+            }
+        }//end for
+
+        
+
+        $this->success();
+    }
 }

@@ -14,6 +14,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 						edit_url: 'consultation/consultation/edit',						
 						del_url: 'consultation/consultation/del',						
 						multi_url: 'consultation/consultation/multi',
+						
 						table: 'consultation',
 					}
 				});
@@ -25,6 +26,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 						edit_url: 'consultation/consultation/edit',						
 						//del_url: 'consultation/consultation/del',						
 						multi_url: 'consultation/consultation/multi',
+						import_url:'consultation/consultation/import',
 						table: 'consultation',
 					}
 				});
@@ -40,26 +42,46 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 sortName: 'consultation.id',
 				//dblClickToEdit:true,
 				//clickToSelect:true,
-				//search:false,//实时搜索框,可以在后台控制器中指定搜索字段
+				searchFormVisible: true,
+				search:false,//实时搜索框,可以在后台控制器中指定搜索字段
+				exportOptions: {
+					mso:{
+					   // fileFormat:        'xlsx',
+						//修复导出数字不显示为科学计数法
+					onMsoNumberFormat: function (cell, row, col) {
+						  return !isNaN($(cell).text())?'\\@':'';
+					  }
+					},
+					ignoreColumn:[0,1]
+				  },
                 columns: [
 					[
 						{checkbox: true},
 						{field: 'id', title: __('Id'), sortable: true, width:80},
-						{field: 'is_pay', title: '付款状态',  searchList: {1: '未付款', 2: '已付款'}},
+						{field: 'is_pay', title: '付款状态',  searchList: {1: '未付款', 2: '已付款'},
+							formatter:function(value,row){
+								if (row.is_pay === '已付款')
+								{
+									return '<span class="label label-success">'+value+'</span>';
+								}else{
+									return '<span class="label label-primary">'+value+'</span>';
+								}
+							}
+						},
 						{field: 'status', title: '会诊状态',  searchList: {0: '待付款', 1: '待取切片', 2: '已取切片', 3: '待补资料', 4: '已初审', 5: '增加项付费', 6: '会诊完成', 7: '待审核'}},
-						{field: 'aim', title: '会诊目的', operate: 'LIKE'},
-						{field: 'number', title:'会诊编号'},
+						{field: 'aim', title: '会诊目的', operate:false},
+						{field: 'number', title:'会诊编号', operate:false},
 						{field: 'name', title: '患者姓名', operate: 'LIKE'},
 						{field: 'sex', title: '性别', searchList: {1: __('Male'), 2: __('Female')}},
 						{field: 'group.name', width:'250', title: '送检医院', operate: 'LIKE'},
-						{field: 'bl_num', title: '原单位病理号'},
-						{field: 'department', title:'科室'},						
-						{field: 'seek_num', title: '就诊号'},
-						{field: 'card', title: '身份证号'},
+						{field: 'bl_num', title: '原单位病理号', operate:false},
+						{field: 'department', title:'科室', operate:false},						
+						{field: 'seek_num', title: '就诊号', operate:false},
+						//{field: 'card', title: '身份证号'},
 						{field: 'report', title: '病理报告', formatter: Table.api.formatter.image, operate: false},
 						{field: 'body', title: '取材部位', operate: 'LIKE'},
 						{field: 'other_info', title: '其它信息', formatter: Table.api.formatter.image, operate: false},						
-						{field: 'form', title: '备注', operate: 'LIKE'},
+						{field: 'form', title: '备注', width:180, operate:false},
 						{field: 'addtime', title: '添加时间', formatter: Table.api.formatter.datetime, operate: 'RANGE', addclass: 'datetimerange', sortable: true},
 						// {fixed: 'right', field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
 					]
